@@ -6,7 +6,7 @@ interface Props {
   title?: string;
 }
 const { title } = Astro.props;
-const pageTitle = title ? `${title} | ${config.leagueName}` : config.leagueName;
+const pageTitle = title ? `${title} | ${config.leagueName} — ${config.clubShort}` : `${config.leagueName} — ${config.clubShort}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -16,23 +16,38 @@ const pageTitle = title ? `${title} | ${config.leagueName}` : config.leagueName;
   <title>{pageTitle}</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
-<body class="bg-stone-950 text-stone-100 min-h-screen font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
 
-  <header class="bg-green-900 border-b border-green-700 shadow-lg">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <a href="/" class="flex items-center gap-3 group">
-        <span class="text-3xl">⛳</span>
-        <div>
-          <div class="text-xl font-bold text-white leading-tight group-hover:text-green-200 transition-colors">{config.leagueName}</div>
-          <div class="text-green-300 text-sm">{config.season} Season &bull; Week {config.currentWeek} of {config.totalWeeks}</div>
-        </div>
-      </a>
-      <nav class="flex gap-1">
-        <a href="/" class="px-3 py-1.5 rounded text-sm font-medium text-green-100 hover:bg-green-700 hover:text-white transition-colors">Home</a>
-        <a href="/standings" class="px-3 py-1.5 rounded text-sm font-medium text-green-100 hover:bg-green-700 hover:text-white transition-colors">Standings</a>
-        <a href="/h2h" class="px-3 py-1.5 rounded text-sm font-medium text-green-100 hover:bg-green-700 hover:text-white transition-colors">Head-to-Head</a>
-        <a href="/newsletter" class="px-3 py-1.5 rounded text-sm font-medium text-green-100 hover:bg-green-700 hover:text-white transition-colors">Newsletter</a>
-      </nav>
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-amber-700/40 shadow-xl">
+    <div class="max-w-5xl mx-auto px-4 py-4">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+
+        <!-- Club branding -->
+        <a href="/" class="flex items-center gap-4 group">
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/50abdb92e4b09ae975285319/1421784657203-D5UQAICB7Y8X6IBV25R7/GLCCLogo-01.png"
+            alt="Gull Lake Country Club logo"
+            class="h-14 w-auto object-contain"
+            onerror="this.style.display='none'"
+          />
+          <div>
+            <div class="text-xs font-semibold tracking-widest text-amber-400 uppercase">{config.clubName}</div>
+            <div class="text-lg font-bold text-white leading-tight group-hover:text-amber-200 transition-colors">{config.leagueName}</div>
+            <div class="text-slate-400 text-xs">{config.season} Season &bull; Week {config.currentWeek} of {config.totalWeeks}</div>
+          </div>
+        </a>
+
+        <!-- Nav -->
+        <nav class="flex gap-1 flex-wrap justify-center">
+          <a href="/" class="px-3 py-1.5 rounded text-sm font-medium text-slate-200 hover:bg-slate-700 hover:text-amber-300 transition-colors">Home</a>
+          <a href="/standings" class="px-3 py-1.5 rounded text-sm font-medium text-slate-200 hover:bg-slate-700 hover:text-amber-300 transition-colors">Standings</a>
+          <a href="/h2h" class="px-3 py-1.5 rounded text-sm font-medium text-slate-200 hover:bg-slate-700 hover:text-amber-300 transition-colors">Head-to-Head</a>
+          <a href="/newsletter" class="px-3 py-1.5 rounded text-sm font-medium text-slate-200 hover:bg-slate-700 hover:text-amber-300 transition-colors">Newsletter</a>
+          <a href={config.clubWebsite} target="_blank" rel="noopener" class="px-3 py-1.5 rounded text-sm font-medium text-amber-400 border border-amber-700/50 hover:bg-amber-900/30 hover:text-amber-200 transition-colors">GLCC ↗</a>
+        </nav>
+
+      </div>
     </div>
   </header>
 
@@ -40,8 +55,11 @@ const pageTitle = title ? `${title} | ${config.leagueName}` : config.leagueName;
     <slot />
   </main>
 
-  <footer class="border-t border-stone-800 mt-16 py-6 text-center text-stone-500 text-sm">
-    {config.leagueName} &bull; {config.season}
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 mt-16 py-8 text-center">
+    <div class="text-slate-400 text-sm mb-1">{config.leagueName} &bull; {config.season} Season</div>
+    <a href={config.clubWebsite} target="_blank" rel="noopener" class="text-amber-500 hover:text-amber-300 text-sm transition-colors">{config.clubName} &bull; {config.clubLocation}</a>
+    <div class="text-slate-600 text-xs mt-2">Par {config.course.par} &bull; {config.course.yards.toLocaleString()} yards &bull; Rating {config.course.rating} &bull; Slope {config.course.slope}</div>
   </footer>
 
 </body>

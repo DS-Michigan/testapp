@@ -7,24 +7,24 @@ interface Props {
 }
 const { standings, flight } = Astro.props;
 ---
-<div class="bg-stone-900 rounded-xl border border-stone-800 overflow-hidden">
-  <div class="bg-green-800 px-4 py-3 flex items-center gap-2">
+<div class="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden">
+  <div class="bg-gradient-to-r from-slate-800 to-slate-700 px-4 py-3 flex items-center justify-between">
     <span class="text-white font-bold text-lg">{flight} Flight</span>
-    <span class="ml-auto text-green-300 text-xs uppercase tracking-wide">W &bull; L &bull; T &bull; Pts</span>
+    <span class="text-slate-400 text-xs uppercase tracking-wide">W &bull; L &bull; T &bull; Pts</span>
   </div>
   <table class="w-full text-sm">
     <tbody>
       {standings.map((s, i) => (
-        <tr class={`border-b border-stone-800 last:border-0 hover:bg-stone-800 transition-colors ${i === 0 ? 'bg-green-950/40' : ''}`}>
-          <td class="px-4 py-3 text-stone-400 w-6 font-mono">{i + 1}</td>
+        <tr class={`border-b border-slate-800 last:border-0 hover:bg-slate-800/60 transition-colors ${i === 0 ? 'bg-amber-900/10' : ''}`}>
+          <td class="px-4 py-3 text-slate-500 w-6 font-mono text-xs">{i + 1}</td>
           <td class="px-2 py-3">
-            <div class="font-semibold text-white">{s.team.name}</div>
-            <div class="text-stone-400 text-xs">{s.team.players.join(' & ')}</div>
+            <div class={`font-semibold ${i === 0 ? 'text-amber-300' : 'text-white'}`}>{s.team.name}</div>
+            <div class="text-slate-500 text-xs">{s.team.players.join(' & ')}</div>
           </td>
-          <td class="px-4 py-3 text-center text-stone-300 font-mono whitespace-nowrap">
+          <td class="px-4 py-3 text-center text-slate-300 font-mono whitespace-nowrap text-xs">
             {s.wins}–{s.losses}–{s.ties}
           </td>
-          <td class="px-4 py-3 text-right font-bold text-green-400 font-mono">{s.points}</td>
+          <td class={`px-4 py-3 text-right font-bold font-mono ${i === 0 ? 'text-amber-400' : 'text-green-400'}`}>{s.points}</td>
         </tr>
       ))}
     </tbody>

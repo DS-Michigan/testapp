@@ -1,6 +1,19 @@
 {
   "leagueName": "Men's Thursday Match Play League",
+  "clubName": "Gull Lake Country Club",
+  "clubShort": "GLCC",
+  "clubLocation": "Richland, MI",
+  "clubWebsite": "https://www.gulllakecc.com",
   "season": "2026",
   "currentWeek": 1,
-  "totalWeeks": 18
+  "totalWeeks": 18,
+  "course": {
+    "holes": 18,
+    "par": 72,
+    "yards": 6354,
+    "rating": 70.8,
+    "slope": 126,
+    "greens": "Bent Grass",
+    "architect": "Tom Bendelow (1911), restored by Arthur Hills (1992)"
+  }
 }

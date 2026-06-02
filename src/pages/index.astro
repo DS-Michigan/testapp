@@ -18,30 +18,59 @@ function teamName(id: string) {
 }
 
 function resultLabel(result: string, homeId: string, awayId: string) {
-  if (result === 'tie') return 'Tied';
+  if (result === 'tie') return 'Halved';
   const winner = result === 'home' ? homeId : awayId;
-  return `${teamName(winner)} won`;
+  return `${teamName(winner)} win`;
 }
 ---
 <Layout>
-  <div class="text-center mb-10">
-    <h1 class="text-3xl font-bold text-white mb-2">Welcome to the League</h1>
-    <p class="text-stone-400">Check in each week for updated standings, match results, and the weekly newsletter.</p>
+
+  <!-- Hero -->
+  <div class="relative rounded-2xl overflow-hidden mb-10 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 border border-slate-700">
+    <div class="absolute inset-0 bg-[url('https://images.squarespace-cdn.com/content/v1/50abdb92e4b09ae975285319/1421784657203-D5UQAICB7Y8X6IBV25R7/GLCCLogo-01.png')] opacity-[0.03] bg-center bg-no-repeat bg-contain pointer-events-none"></div>
+    <div class="relative px-8 py-10 text-center">
+      <div class="text-amber-400 text-xs font-semibold tracking-widest uppercase mb-2">Gull Lake Country Club &bull; Richland, MI</div>
+      <h1 class="text-3xl sm:text-4xl font-bold text-white mb-3">Men's Thursday Match Play</h1>
+      <p class="text-slate-300 max-w-xl mx-auto mb-6">Two flights. 20 teams. 18 weeks on the shores of Gull Lake. Check in every Friday for updated standings and the weekly recap.</p>
+      <div class="flex flex-wrap justify-center gap-6 text-center">
+        <div>
+          <div class="text-2xl font-bold text-amber-400">{config.course.par}</div>
+          <div class="text-slate-500 text-xs uppercase tracking-wide">Par</div>
+        </div>
+        <div class="border-l border-slate-700 pl-6">
+          <div class="text-2xl font-bold text-amber-400">{config.course.yards.toLocaleString()}</div>
+          <div class="text-slate-500 text-xs uppercase tracking-wide">Yards</div>
+        </div>
+        <div class="border-l border-slate-700 pl-6">
+          <div class="text-2xl font-bold text-amber-400">{config.course.rating}</div>
+          <div class="text-slate-500 text-xs uppercase tracking-wide">Rating</div>
+        </div>
+        <div class="border-l border-slate-700 pl-6">
+          <div class="text-2xl font-bold text-amber-400">{config.course.slope}</div>
+          <div class="text-slate-500 text-xs uppercase tracking-wide">Slope</div>
+        </div>
+        <div class="border-l border-slate-700 pl-6">
+          <div class="text-2xl font-bold text-amber-400">{config.totalWeeks}</div>
+          <div class="text-slate-500 text-xs uppercase tracking-wide">Weeks</div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- Week Results -->
   {currentWeekMatches.length > 0 && (
     <section class="mb-10">
       <h2 class="text-xl font-bold text-white mb-4">Week {config.currentWeek} Results</h2>
       <div class="grid md:grid-cols-2 gap-4">
         {currentWeekMatches.map(weekFlight => (
-          <div class="bg-stone-900 rounded-xl border border-stone-800 overflow-hidden">
-            <div class="bg-green-800 px-4 py-2 font-semibold text-white capitalize">{weekFlight.flight} Flight</div>
-            <ul class="divide-y divide-stone-800">
+          <div class="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden">
+            <div class="bg-slate-800 px-4 py-2 font-semibold text-white capitalize border-b border-slate-700">{weekFlight.flight} Flight</div>
+            <ul class="divide-y divide-slate-800">
               {weekFlight.matches.map(m => (
                 <li class="px-4 py-3 text-sm">
                   <div class="flex justify-between items-center gap-2">
-                    <span class="text-stone-300">{teamName(m.home)} vs {teamName(m.away)}</span>
-                    <span class={`text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${m.result === 'tie' ? 'bg-yellow-900 text-yellow-300' : 'bg-green-900 text-green-300'}`}>
+                    <span class="text-slate-300">{teamName(m.home)} vs {teamName(m.away)}</span>
+                    <span class={`text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${m.result === 'tie' ? 'bg-slate-700 text-slate-300' : 'bg-green-900/60 text-green-300'}`}>
                       {resultLabel(m.result, m.home, m.away)}
                     </span>
                   </div>
@@ -54,10 +83,11 @@ function resultLabel(result: string, homeId: string, awayId: string) {
     </section>
   )}
 
+  <!-- Standings -->
   <section class="mb-10">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-xl font-bold text-white">Standings</h2>
-      <a href="/standings" class="text-green-400 hover:text-green-300 text-sm transition-colors">View full standings →</a>
+      <a href="/standings" class="text-amber-400 hover:text-amber-300 text-sm transition-colors">Full standings →</a>
     </div>
     <div class="grid md:grid-cols-2 gap-6">
       <StandingsTable standings={northStandings} flight="North" />
@@ -65,18 +95,47 @@ function resultLabel(result: string, homeId: string, awayId: string) {
     </div>
   </section>
 
-  {latestNewsletter && (
-    <section>
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold text-white">Latest Newsletter</h2>
-        <a href="/newsletter" class="text-green-400 hover:text-green-300 text-sm transition-colors">All issues →</a>
+  <!-- Newsletter + Course note -->
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <!-- Latest Newsletter (2/3 width) -->
+    {latestNewsletter && (
+      <div class="md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-white">Latest Newsletter</h2>
+          <a href="/newsletter" class="text-amber-400 hover:text-amber-300 text-sm transition-colors">All issues →</a>
+        </div>
+        <div class="bg-slate-900 rounded-xl border border-slate-700 p-6 h-full">
+          <div class="text-xs text-slate-500 mb-1">Week {latestNewsletter.week} &bull; {latestNewsletter.date}</div>
+          <h3 class="text-lg font-bold text-white mb-2">{latestNewsletter.title}</h3>
+          <p class="text-slate-300 text-sm mb-4">{latestNewsletter.summary}</p>
+          <a href={`/newsletter/${latestNewsletter.week}`} class="text-amber-400 hover:text-amber-300 text-sm transition-colors">Read full recap →</a>
+        </div>
       </div>
-      <div class="bg-stone-900 rounded-xl border border-stone-800 p-6">
-        <div class="text-xs text-stone-500 mb-1">Week {latestNewsletter.week} &bull; {latestNewsletter.date}</div>
-        <h3 class="text-xl font-bold text-white mb-2">{latestNewsletter.title}</h3>
-        <p class="text-stone-300 mb-4">{latestNewsletter.summary}</p>
-        <a href={`/newsletter/${latestNewsletter.week}`} class="text-green-400 hover:text-green-300 text-sm transition-colors">Read full recap →</a>
+    )}
+
+    <!-- 19th Hole sidebar (1/3 width) -->
+    <div>
+      <h2 class="text-xl font-bold text-white mb-4">19th Hole</h2>
+      <div class="bg-slate-900 rounded-xl border border-slate-700 p-5 space-y-4">
+        <div>
+          <div class="text-amber-400 font-semibold text-sm mb-1">⛽ Greenside Grill</div>
+          <div class="text-slate-400 text-xs">Post-round gathering spot. Win or lose, the cold ones taste the same.</div>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+          <div class="text-amber-400 font-semibold text-sm mb-1">⚓ Boat Bar</div>
+          <div class="text-slate-400 text-xs">Right on the lake. Nothing beats watching the sun drop over Gull Lake after 18.</div>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+          <div class="text-amber-400 font-semibold text-sm mb-1">🏌️ The Course</div>
+          <div class="text-slate-400 text-xs">Bent grass greens &bull; Par {config.course.par} &bull; {config.course.yards.toLocaleString()} yds<br/>Designed {config.course.architect}</div>
+        </div>
+        <div class="border-t border-slate-800 pt-4">
+          <a href={config.clubWebsite} target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 text-xs transition-colors">Visit gulllakecc.com →</a>
+        </div>
       </div>
-    </section>
-  )}
+    </div>
+
+  </div>
+
 </Layout>
