@@ -1,0 +1,26 @@
+{
+  "north": [
+    { "id": "n1", "name": "Johnson & Smith", "players": ["Mike Johnson", "Dave Smith"] },
+    { "id": "n2", "name": "Williams & Brown", "players": ["Tom Williams", "Chris Brown"] },
+    { "id": "n3", "name": "Davis & Miller", "players": ["Scott Davis", "Bob Miller"] },
+    { "id": "n4", "name": "Wilson & Moore", "players": ["Jim Wilson", "Pat Moore"] },
+    { "id": "n5", "name": "Taylor & Anderson", "players": ["Rick Taylor", "Steve Anderson"] },
+    { "id": "n6", "name": "Thomas & Jackson", "players": ["Gary Thomas", "Ken Jackson"] },
+    { "id": "n7", "name": "White & Harris", "players": ["Dan White", "Tim Harris"] },
+    { "id": "n8", "name": "Martin & Thompson", "players": ["Joe Martin", "Bill Thompson"] },
+    { "id": "n9", "name": "Garcia & Martinez", "players": ["Carlos Garcia", "Mike Martinez"] },
+    { "id": "n10", "name": "Robinson & Clark", "players": ["Ed Robinson", "Frank Clark"] }
+  ],
+  "south": [
+    { "id": "s1", "name": "Lewis & Lee", "players": ["Ray Lewis", "Tony Lee"] },
+    { "id": "s2", "name": "Walker & Hall", "players": ["Greg Walker", "Mark Hall"] },
+    { "id": "s3", "name": "Allen & Young", "players": ["Brad Allen", "Kevin Young"] },
+    { "id": "s4", "name": "Hernandez & King", "players": ["Juan Hernandez", "Larry King"] },
+    { "id": "s5", "name": "Wright & Lopez", "players": ["Paul Wright", "Dave Lopez"] },
+    { "id": "s6", "name": "Hill & Scott", "players": ["Alan Hill", "Jeff Scott"] },
+    { "id": "s7", "name": "Green & Adams", "players": ["Ron Green", "Craig Adams"] },
+    { "id": "s8", "name": "Baker & Nelson", "players": ["Todd Baker", "Ryan Nelson"] },
+    { "id": "s9", "name": "Carter & Mitchell", "players": ["Sam Carter", "Doug Mitchell"] },
+    { "id": "s10", "name": "Perez & Roberts", "players": ["Marco Perez", "Nick Roberts"] }
+  ]
+}

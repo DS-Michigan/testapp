@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import newsletterData from '../../data/newsletter.json';
+
+const issues = [...newsletterData].reverse();
+---
+<Layout title="Newsletter">
+  <h1 class="text-3xl font-bold text-white mb-2">Weekly Newsletter</h1>
+  <p class="text-stone-400 mb-8">Recaps, highlights, and league news — posted each week after play.</p>
+
+  <div class="space-y-4">
+    {issues.map(issue => (
+      <a href={`/newsletter/${issue.week}`} class="block bg-stone-900 rounded-xl border border-stone-800 p-6 hover:border-green-700 transition-colors group">
+        <div class="text-xs text-stone-500 mb-1">Week {issue.week} &bull; {issue.date}</div>
+        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-green-300 transition-colors">{issue.title}</h2>
+        <p class="text-stone-400 text-sm line-clamp-2">{issue.summary}</p>
+        <span class="mt-3 inline-block text-green-400 text-sm group-hover:text-green-300 transition-colors">Read recap →</span>
+      </a>
+    ))}
+  </div>
+</Layout>

@@ -1,0 +1,26 @@
+[
+  {
+    "week": 1,
+    "date": "2026-06-05",
+    "flight": "north",
+    "matches": [
+      { "home": "n1", "away": "n2", "result": "home" },
+      { "home": "n3", "away": "n4", "result": "away" },
+      { "home": "n5", "away": "n6", "result": "tie" },
+      { "home": "n7", "away": "n8", "result": "home" },
+      { "home": "n9", "away": "n10", "result": "away" }
+    ]
+  },
+  {
+    "week": 1,
+    "date": "2026-06-05",
+    "flight": "south",
+    "matches": [
+      { "home": "s1", "away": "s2", "result": "home" },
+      { "home": "s3", "away": "s4", "result": "tie" },
+      { "home": "s5", "away": "s6", "result": "away" },
+      { "home": "s7", "away": "s8", "result": "home" },
+      { "home": "s9", "away": "s10", "result": "away" }
+    ]
+  }
+]

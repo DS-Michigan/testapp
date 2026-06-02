@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StandingsTable from '../components/StandingsTable.astro';
+import { computeStandings } from '../lib/standings';
+
+const northStandings = computeStandings('north');
+const southStandings = computeStandings('south');
+---
+<Layout title="Standings">
+  <h1 class="text-3xl font-bold text-white mb-2">League Standings</h1>
+  <p class="text-stone-400 mb-8">Points: 1 for a win &bull; 0.5 for a tie &bull; 0 for a loss</p>
+
+  <div class="grid md:grid-cols-2 gap-8">
+    <div>
+      <StandingsTable standings={northStandings} flight="North" />
+    </div>
+    <div>
+      <StandingsTable standings={southStandings} flight="South" />
+    </div>
+  </div>
+</Layout>

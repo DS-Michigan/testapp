@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAllTeams, computeH2H } from '../lib/standings';
+
+const { north, south } = getAllTeams();
+const allTeams = [...north, ...south];
+
+const teamRecords = allTeams.map(team => ({
+  team,
+  flight: north.find(t => t.id === team.id) ? 'North' : 'South',
+  h2h: computeH2H(team.id),
+}));
+
+const northRecords = teamRecords.filter(r => r.flight === 'North');
+const southRecords = teamRecords.filter(r => r.flight === 'South');
+---
+<Layout title="Head-to-Head">
+  <h1 class="text-3xl font-bold text-white mb-2">Head-to-Head Records</h1>
+  <p class="text-stone-400 mb-8">All-time records between teams within each flight.</p>
+
+  {[{ label: 'North Flight', records: northRecords }, { label: 'South Flight', records: southRecords }].map(({ label, records }) => (
+    <section class="mb-12">
+      <h2 class="text-xl font-bold text-green-400 mb-4 pb-2 border-b border-stone-800">{label}</h2>
+      <div class="space-y-4">
+        {records.map(({ team, h2h }) => (
+          <div class="bg-stone-900 rounded-xl border border-stone-800 overflow-hidden">
+            <div class="px-4 py-3 bg-stone-800">
+              <div class="font-bold text-white">{team.name}</div>
+              <div class="text-stone-400 text-xs">{team.players.join(' & ')}</div>
+            </div>
+            {h2h.length === 0 ? (
+              <p class="px-4 py-3 text-stone-500 text-sm italic">No matches played yet.</p>
+            ) : (
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-stone-800 text-stone-500 text-xs uppercase">
+                    <th class="px-4 py-2 text-left">Opponent</th>
+                    <th class="px-4 py-2 text-center">W</th>
+                    <th class="px-4 py-2 text-center">L</th>
+                    <th class="px-4 py-2 text-center">T</th>
+                    <th class="px-4 py-2 text-right">Pts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {h2h.map(r => (
+                    <tr class="border-b border-stone-800 last:border-0 hover:bg-stone-800 transition-colors">
+                      <td class="px-4 py-2.5 text-stone-200">{r.opponent.name}</td>
+                      <td class="px-4 py-2.5 text-center text-green-400 font-mono">{r.wins}</td>
+                      <td class="px-4 py-2.5 text-center text-red-400 font-mono">{r.losses}</td>
+                      <td class="px-4 py-2.5 text-center text-yellow-400 font-mono">{r.ties}</td>
+                      <td class="px-4 py-2.5 text-right text-white font-bold font-mono">{r.points}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>
